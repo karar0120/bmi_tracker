@@ -1,5 +1,5 @@
 import 'package:bmi_tracker/core/routing/routes.dart';
-import 'package:bmi_tracker/core/theming/color.dart';
+import 'package:bmi_tracker/core/theming/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,9 +16,7 @@ class BmiApp extends StatelessWidget {
       child: MaterialApp(
         title: "BMI App",
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            primaryColor: ColorsManager.mainBlue,
-            scaffoldBackgroundColor: Colors.white),
+        darkTheme: darkTheme,
         initialRoute: Routes.loginScreen,
         onGenerateRoute: AppRoute.generateRoute,
       ),

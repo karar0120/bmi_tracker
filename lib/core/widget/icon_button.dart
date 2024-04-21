@@ -10,7 +10,7 @@ class SecBtn extends StatelessWidget {
     return InkWell(
       onTap: onpress,
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(10),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bmi_tracker/core/helper/spacing.dart';
-import 'package:bmi_tracker/features/login/ui/widget/build_form_field.dart';
 import 'package:bmi_tracker/features/login/ui/widget/build_login_button.dart';
 import 'package:bmi_tracker/features/login/ui/widget/build_text_login.dart';
 import 'package:bmi_tracker/features/login/ui/widget/login_bloc_listener.dart';
@@ -24,8 +23,6 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             children: [
               const BuildTextLogin(),
-              verticalSpace(36),
-              const BuildFormFieldEmailAndPassword(),
               verticalSpace(24),
               const LoginButton(),
               verticalSpace(16),

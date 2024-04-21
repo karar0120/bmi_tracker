@@ -68,8 +68,10 @@ dependencies:
   #Flutter plugin for Firebase Core, enabling connecting to multiple Firebase apps.
   firebase_core: ^2.15.0
   firebase_auth: ^4.16.0
+  cloud_firestore: ^4.14.0
   #A Flutter Sliders library for creating highly customizable and UI-rich slider, range slider, and range selector widgets for filtering purposes.
-  syncfusion_flutter_sliders: ^25.1.40
+  syncfusion_flutter_sliders: ^22.2.12
+  percent_indicator: ^4.2.3
 
 
 dev_dependencies:

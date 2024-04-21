@@ -5,10 +5,10 @@ import 'color.dart';
 import 'font_wight.dart';
 
 class TextStyles {
-  static TextStyle font24BlackBold = TextStyle(
-    fontSize: 24.sp,
+  static TextStyle font60WhiteBold = TextStyle(
+    fontSize: 60.sp,
     fontWeight: FontWeightHelper.bold,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   static TextStyle font32BlueBold = TextStyle(
@@ -91,6 +91,6 @@ class TextStyles {
   static TextStyle font15DarkBlueMedium = TextStyle(
     fontSize: 15.sp,
     fontWeight: FontWeightHelper.medium,
-    color: ColorsManager.darkBlue,
+    color: ColorsManager.lightGray,
   );
 }
