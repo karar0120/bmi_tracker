@@ -1,12 +1,14 @@
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:bmi_tracker/features/bmi_calculator/data/models/bmi_request.dart';
+import 'package:bmi_tracker/features/bmi_calculator/data/models/bmi_response.dart';
+import 'package:bmi_tracker/features/bmi_calculator/data/repos/irepository.dart';
 import 'package:flutter/material.dart';
 
 part 'bmi_state.dart';
 
 class BmiCubit extends Cubit<BmiState> {
-  BmiCubit() : super(BmiInitial());
+  final BmiRepo bmiRepo;
+  BmiCubit({required this.bmiRepo}) : super(BmiInitial());
 
   String gender = "MALE";
   int weight = 50;
@@ -54,7 +56,6 @@ class BmiCubit extends Cubit<BmiState> {
     tempBMI = double.parse(bmi);
     findStatus();
     addBmiDetailsToFirestore();
-    print(bmi);
   }
 
   void findStatus() {
@@ -81,91 +82,55 @@ class BmiCubit extends Cubit<BmiState> {
     }
   }
 
-  void addBmiDetailsToFirestore() async {
-    try {
-      // Get the current user
-      User? user = FirebaseAuth.instance.currentUser;
-      if (user == null) {
-        // Handle if the user is not signed in
-        return;
-      }
-
-      // Get the user's UID
-      String uid = user.uid;
-
-      // Create a map containing BMI details
-      Map<String, dynamic> bmiDetails = {
-        'height': height,
-        'weight': weight,
-        'date': DateTime.now(),
-        'age': age,
-        'gender': gender,
-      };
-
-      // Add BMI details to Firestore
-      await FirebaseFirestore.instance
-          .collection('users') // Collection name
-          .doc(uid) // Document ID is the user's UID
-          .collection('bmiDetails') // Subcollection for BMI details
-          .add(bmiDetails); // Add BMI details to Firestore
-    } catch (e) {
-      print('Error adding BMI details: $e');
-      // Handle any errors that occur during the process
-    }
+  Future<void> addBmiDetailsToFirestore() async {
+    await bmiRepo.addBmiMeasures(BmiRequestBody(
+        age: age,
+        gender: gender,
+        height: height,
+        weight: weight,
+        bmiStatus: bmiStatus,
+        dateTime: DateTime.now()));
   }
 
-  // final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  List<BmiResponse> bmiItems = [];
 
-  // Future<List<Map<String, dynamic>>> getAllBMIDetails() async {
-  //   try {
-  //     final QuerySnapshot querySnapshot = await _firestore
-  //         .collection('users/q4otwQrEJmeKWBOri639EAu2Upf1/bmiDetails')
-  //         .orderBy('date')
-  //         .limit(2)
-  //         .get();
+  int limit = 15;
+  int pageNo = 1;
+  bool hasMore = true;
+  bool isLoaded = false;
+  bool isScroll = true;
 
-  //     List<Map<String, dynamic>> bmiDetailsList = [];
+  void incrementsNumberPage() {
+    pageNo++;
+    isLoaded = false;
+    //emit(const AnimalsState.incrementsNumberPage());
+  }
 
-  //     for (var doc in querySnapshot.docs) {
-  //       bmiDetailsList.add(doc.data() as Map<String, dynamic>);
-  //     }
-  //     print(bmiDetailsList);
-  //     return bmiDetailsList;
-  //   } catch (e) {
-  //     print('Error retrieving BMI details: $e');
-  //     rethrow; // Handle the error as per your app's requirements
-  //   }
-  // }
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  Future<void> refreshData() async {
+    bmiItems.clear();
+    isScroll = false;
+    isLoaded = false;
+    hasMore = true;
+    pageNo = 1;
+    //emitGetAnimalsState();
+  }
 
-  Future<List<Map<String, dynamic>>> getPaginatedBMIDetails(int pageSize,
-      {DocumentSnapshot? startAfterDoc}) async {
-    try {
-      User user = FirebaseAuth.instance.currentUser!;
-
-      // Get the user's UID
-      String uid = user.uid;
-      Query query =
-          _firestore.collection('users/$uid/bmiDetails').limit(pageSize);
-
-      if (startAfterDoc != null) {
-        query = query.startAfterDocument(startAfterDoc);
-      }
-
-      QuerySnapshot querySnapshot = await query.get();
-
-      List<Map<String, dynamic>> bmiDetailsList = [];
-
-      print(bmiDetailsList);
-
-      for (var doc in querySnapshot.docs) {
-        bmiDetailsList.add(doc.data() as Map<String, dynamic>);
-      }
-
-      return bmiDetailsList;
-    } catch (e) {
-      print('Error retrieving paginated BMI details: $e');
-      rethrow; // Handle the error as per your app's requirements
-    }
+  Future getToFirestore() async {
+    if (isLoaded) return;
+    isLoaded = true;
+    isScroll = false;
+    final result = await bmiRepo.getBmiMeasures();
+    result.when(
+        success: (value) {
+          bmiItems = value;
+          isLoaded = false;
+          incrementsNumberPage();
+          if (bmiItems.length < limit) {
+            hasMore = false;
+          }
+          isScroll = true;
+        },
+        failure: (error) {});
+    emit(BmiGetData());
   }
 }

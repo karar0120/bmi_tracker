@@ -2,11 +2,13 @@ import 'package:bmi_tracker/core/helper/spacing.dart';
 import 'package:bmi_tracker/core/helper/strings_manger.dart';
 import 'package:bmi_tracker/core/helper/values_manger.dart';
 import 'package:bmi_tracker/core/theming/styles.dart';
+import 'package:bmi_tracker/features/bmi_calculator/data/models/bmi_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BmiHistoryCard extends StatelessWidget {
-  const BmiHistoryCard({super.key});
+  final BmiResponse bmiResponse;
+  const BmiHistoryCard({super.key, required this.bmiResponse});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class BmiHistoryCard extends StatelessWidget {
                       horizontalSpace(AppSize.s8),
                       Expanded(
                           child: Text(
-                        '12/12/2022',
+                        bmiResponse.date ?? '',
                         style: TextStyles.font14LightGrayRegular,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -53,7 +55,7 @@ class BmiHistoryCard extends StatelessWidget {
                             horizontalSpace(AppSize.s8),
                             Expanded(
                                 child: Text(
-                              '170',
+                              "${bmiResponse.height}",
                               style: TextStyles.font14LightGrayRegular,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -71,7 +73,7 @@ class BmiHistoryCard extends StatelessWidget {
                             horizontalSpace(AppSize.s8),
                             Expanded(
                                 child: Text(
-                              '80Kg',
+                              '${bmiResponse.wight}',
                               style: TextStyles.font14LightGrayRegular,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -94,7 +96,7 @@ class BmiHistoryCard extends StatelessWidget {
                             horizontalSpace(AppSize.s8),
                             Expanded(
                                 child: Text(
-                              'male',
+                              bmiResponse.gender ?? 'male',
                               style: TextStyles.font14LightGrayRegular,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -112,7 +114,7 @@ class BmiHistoryCard extends StatelessWidget {
                             horizontalSpace(AppSize.s8),
                             Expanded(
                                 child: Text(
-                              '25',
+                              '${bmiResponse.age}',
                               style: TextStyles.font14LightGrayRegular,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -132,7 +134,7 @@ class BmiHistoryCard extends StatelessWidget {
                       horizontalSpace(AppSize.s8),
                       Expanded(
                           child: Text(
-                        '37.2',
+                        bmiResponse.bmiStatus ?? '',
                         style: TextStyles.font14LightGrayRegular,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

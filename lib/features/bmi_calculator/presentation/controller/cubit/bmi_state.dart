@@ -16,6 +16,8 @@ class BmiChangeHeight extends BmiState {}
 class BmiIncAge extends BmiState {}
 
 class BmiDecAge extends BmiState {}
+
+class BmiGetData extends BmiState {}
 //
 // class BmInitial extends BmState {}
 //

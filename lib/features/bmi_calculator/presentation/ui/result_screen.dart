@@ -70,7 +70,7 @@ class ResultScreen extends StatelessWidget {
               verticalSpace(AppSize.s20),
               AppTextButton(
                 onPressed: () {
-                  bmiController.getPaginatedBMIDetails(10);
+                  bmiController.getToFirestore();
                   // context.pop();
                 },
                 buttonText: "Find Out More",

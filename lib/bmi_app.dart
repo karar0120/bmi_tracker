@@ -1,4 +1,3 @@
-import 'package:bmi_tracker/core/routing/routes.dart';
 import 'package:bmi_tracker/core/theming/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +16,6 @@ class BmiApp extends StatelessWidget {
         title: "BMI App",
         debugShowCheckedModeBanner: false,
         darkTheme: darkTheme,
-        initialRoute: Routes.loginScreen,
         onGenerateRoute: AppRoute.generateRoute,
       ),
     );
