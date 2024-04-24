@@ -1,4 +1,5 @@
 import 'package:bmi_tracker/core/helper/values_manger.dart';
+import 'package:bmi_tracker/core/widget/button_sheet.dart';
 import 'package:bmi_tracker/core/widget/loader.dart';
 import 'package:bmi_tracker/core/widget/no_record_found.dart';
 import 'package:bmi_tracker/features/bmi_calculator/presentation/controller/cubit/bmi_cubit.dart';
@@ -24,10 +25,19 @@ class BmiList extends StatelessWidget {
               padding: EdgeInsets.zero,
               physics: const NeverScrollableScrollPhysics(),
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              children: List.generate(bmiController.bmiItems.length, (index) {
+              children:
+                  List.generate(bmiController.bmiItems.length + 1, (index) {
                 if (index < bmiController.bmiItems.length) {
                   return GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      showCustomBottomSheet(context,
+                          bottomSheetContent: BlocProvider<BmiCubit>.value(
+                            value: context.read<BmiCubit>(),
+                            child: ButtonSheet(
+                                id: bmiController.bmiItems[index].id!),
+                          ),
+                          bottomSheetHeight: 0.25);
+                    },
                     child: BmiHistoryCard(
                       bmiResponse: bmiController.bmiItems[index],
                     ),

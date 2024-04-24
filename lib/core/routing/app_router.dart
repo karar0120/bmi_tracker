@@ -32,7 +32,7 @@ class AppRoute {
       case Routes.historyBmi:
         return MaterialPageRoute(
             builder: (context) => BlocProvider<BmiCubit>(
-                  create: (context) => getIt<BmiCubit>()..getToFirestore(),
+                  create: (context) => getIt<BmiCubit>()..refreshData(),
                   child: const BmiHistoryScreen(),
                 ));
 

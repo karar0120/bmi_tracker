@@ -26,22 +26,6 @@ class BmiHistoryCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        AppString.date,
-                        style: TextStyles.font16WhiteSemiBold,
-                      ),
-                      horizontalSpace(AppSize.s8),
-                      Expanded(
-                          child: Text(
-                        bmiResponse.date ?? '',
-                        style: TextStyles.font14LightGrayRegular,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ))
-                    ],
-                  ),
                   verticalSpace(AppSize.s12),
                   Row(
                     children: [
@@ -55,7 +39,7 @@ class BmiHistoryCard extends StatelessWidget {
                             horizontalSpace(AppSize.s8),
                             Expanded(
                                 child: Text(
-                              "${bmiResponse.height}",
+                              "${bmiResponse.height!.toStringAsFixed(1)}/cm",
                               style: TextStyles.font14LightGrayRegular,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -73,7 +57,7 @@ class BmiHistoryCard extends StatelessWidget {
                             horizontalSpace(AppSize.s8),
                             Expanded(
                                 child: Text(
-                              '${bmiResponse.wight}',
+                              '${bmiResponse.weight}/kg',
                               style: TextStyles.font14LightGrayRegular,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,

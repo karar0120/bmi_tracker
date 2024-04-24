@@ -18,7 +18,7 @@ class _BmiHistoryScreenState extends State<BmiHistoryScreen> {
     scrollController.addListener(() {
       if (scrollController.position.maxScrollExtent ==
           scrollController.offset) {
-        context.read<BmiCubit>().getToFirestore();
+        context.read<BmiCubit>().getBmi();
       }
     });
   }
@@ -31,19 +31,25 @@ class _BmiHistoryScreenState extends State<BmiHistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final bmiController = context.read<BmiCubit>();
     return Scaffold(
       appBar: const GeneralAppBar(
         title: Text(AppString.bmiHistory),
         centerTitle: true,
       ),
       body: SafeArea(
-        child: ListView(
-          controller: scrollController,
-          physics: const BouncingScrollPhysics(),
-          padding: EdgeInsets.zero,
-          shrinkWrap: true,
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          children: const [BmiList()],
+        child: RefreshIndicator(
+          onRefresh: () {
+            return bmiController.refreshData();
+          },
+          child: ListView(
+            controller: scrollController,
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            children: const [BmiList()],
+          ),
         ),
       ),
     );

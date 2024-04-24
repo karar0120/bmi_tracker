@@ -12,8 +12,8 @@ class BmiMeasuresResponse {
 
 @JsonSerializable()
 class BmiResponse {
-  int? id;
-  int? wight;
+  String? id;
+  int? weight;
   double? height;
   int? age;
   String? gender;
@@ -21,7 +21,7 @@ class BmiResponse {
   String? date;
   BmiResponse({
     this.id,
-    this.wight,
+    this.weight,
     this.gender,
     this.height,
     this.age,
@@ -29,6 +29,6 @@ class BmiResponse {
     this.date,
   });
 
-  factory BmiResponse.fromJson(Map<String, dynamic> json) =>
-      _$BmiResponseFromJson(json);
+  factory BmiResponse.fromJson(Map<String, dynamic> json, String id) =>
+      _$BmiResponseFromJson(json, id);
 }

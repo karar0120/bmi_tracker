@@ -17,11 +17,11 @@ class MyDrawer extends StatelessWidget {
           decoration:
               BoxDecoration(shape: BoxShape.rectangle, color: Colors.blue[100]),
           child: Image.asset(
-            'assets/image/Map.jpeg',
+            'assets/images/bmi.webp',
             fit: BoxFit.cover,
           ),
         ),
-        Text('Ahmed muhammed', style: TextStyles.font14GrayRegular),
+        Text('Bmi Calculator', style: TextStyles.font14GrayRegular),
         verticalSpace(AppSize.s3)
       ],
     );

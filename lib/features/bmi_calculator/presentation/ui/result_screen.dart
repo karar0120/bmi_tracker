@@ -1,3 +1,4 @@
+import 'package:bmi_tracker/core/helper/extensions.dart';
 import 'package:bmi_tracker/core/helper/spacing.dart';
 import 'package:bmi_tracker/core/helper/values_manger.dart';
 import 'package:bmi_tracker/core/theming/styles.dart';
@@ -34,27 +35,24 @@ class ResultScreen extends StatelessWidget {
               verticalSpace(AppSize.s10),
               SizedBox(
                 height: AppSize.s350,
-                child: Expanded(
-                  child: CircularPercentIndicator(
-                    animationDuration: 1000,
-                    footer: Text(bmiController.bmiStatus,
-                        style: TextStyles.font32BlueBold),
-                    radius: AppSize.s140,
-                    lineWidth: AppSize.s30,
-                    animation: true,
-                    circularStrokeCap: CircularStrokeCap.round,
-                    percent: bmiController.tempBMI / 100,
-                    center: Text(
-                      "${bmiController.bmi}%",
-                      style: TextStyle(
-                          color: bmiController.colorStattus,
-                          fontSize: 60,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    progressColor: bmiController.colorStattus,
-                    backgroundColor:
-                        bmiController.colorStattus.withOpacity(0.2),
+                child: CircularPercentIndicator(
+                  animationDuration: 1000,
+                  footer: Text(bmiController.bmiStatus,
+                      style: TextStyles.font32BlueBold),
+                  radius: AppSize.s140,
+                  lineWidth: AppSize.s30,
+                  animation: true,
+                  circularStrokeCap: CircularStrokeCap.round,
+                  percent: bmiController.tempBMI / 100,
+                  center: Text(
+                    "${bmiController.bmi}%",
+                    style: TextStyle(
+                        color: bmiController.colorStatus,
+                        fontSize: 60,
+                        fontWeight: FontWeight.bold),
                   ),
+                  progressColor: bmiController.colorStatus,
+                  backgroundColor: bmiController.colorStatus.withOpacity(0.2),
                 ),
               ),
               verticalSpace(AppSize.s20),
@@ -70,8 +68,7 @@ class ResultScreen extends StatelessWidget {
               verticalSpace(AppSize.s20),
               AppTextButton(
                 onPressed: () {
-                  bmiController.getToFirestore();
-                  // context.pop();
+                  context.pop();
                 },
                 buttonText: "Find Out More",
                 textStyle: TextStyles.font16WhiteMedium,

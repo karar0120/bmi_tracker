@@ -17,14 +17,40 @@ class BmiIncAge extends BmiState {}
 
 class BmiDecAge extends BmiState {}
 
-class BmiGetData extends BmiState {}
-//
-// class BmInitial extends BmState {}
-//
-// class BmInitial extends BmState {}
-//
-// class BmInitial extends BmState {}
-//
-// class BmInitial extends BmState {}
-//
-// class BmInitial extends BmState {}
+class GetBmiLoading extends BmiState {}
+
+class GetBmiLoaded extends BmiState {}
+
+class GetBmiError extends BmiState {
+  final String error;
+  GetBmiError({required this.error});
+}
+
+class DeleteBmiLoading extends BmiState {}
+
+class DeleteBmiLoaded extends BmiState {}
+
+class DeleteBmiError extends BmiState {
+  final String error;
+  DeleteBmiError({required this.error});
+}
+
+class UpdateBmiLoading extends BmiState {}
+
+class UpdateBmiLoaded extends BmiState {}
+
+class UpdateBmiError extends BmiState {
+  final String error;
+  UpdateBmiError({required this.error});
+}
+
+class AddBmiLoading extends BmiState {}
+
+class AddBmiLoaded extends BmiState {}
+
+class AddBmiError extends BmiState {
+  final String error;
+  AddBmiError({required this.error});
+}
+
+class BmiIncrementsNumberPage extends BmiState {}

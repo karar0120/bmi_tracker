@@ -30,4 +30,8 @@ class AppString {
   static const String letsGo = "LETS GO";
   static const String male = "MALE";
   static const String female = "FEMALE";
+
+  static const String edit = "Edit";
+
+  static const String delete = "Delete";
 }

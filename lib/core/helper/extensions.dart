@@ -62,3 +62,41 @@ extension NonNullInteger on int? {
     }
   }
 }
+
+String findStatus(tempBMI) {
+  if (tempBMI < 18.5) {
+    return "UnderWeight";
+  }
+  if (tempBMI > 18.5 && tempBMI < 24.9) {
+    return "Normal";
+  }
+  if (tempBMI > 25.0 && tempBMI < 29.9) {
+    return "OverWeight";
+  }
+  if (tempBMI > 30.0 && tempBMI < 34.9) {
+    return "OBESE";
+  }
+  if (tempBMI > 35.0) {
+    return "Extremely OBESE";
+  }
+  return '';
+}
+
+Color findColor(tempBMI) {
+  if (tempBMI < 18.5) {
+    return const Color(0xffFFB800);
+  }
+  if (tempBMI > 18.5 && tempBMI < 24.9) {
+    return const Color(0xff00CA39);
+  }
+  if (tempBMI > 25.0 && tempBMI < 29.9) {
+    return const Color(0xffFF5858);
+  }
+  if (tempBMI > 30.0 && tempBMI < 34.9) {
+    return const Color(0xffFF0000);
+  }
+  if (tempBMI > 35.0) {
+    return const Color(0xff000000);
+  }
+  return const Color(0xff246AFE);
+}

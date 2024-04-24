@@ -9,7 +9,7 @@ part of 'bmi_response.dart';
 BmiMeasuresResponse _$BmiMeasuresResponseFromJson(Map<String, dynamic> json) =>
     BmiMeasuresResponse(
       bmiMeasures: (json['bmiMeasures'] as List<dynamic>?)
-          ?.map((e) => BmiResponse.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => BmiResponse.fromJson(e as Map<String, dynamic>, ''))
           .toList(),
     );
 
@@ -19,9 +19,10 @@ Map<String, dynamic> _$BmiMeasuresResponseToJson(
       'bmiMeasures': instance.bmiMeasures,
     };
 
-BmiResponse _$BmiResponseFromJson(Map<String, dynamic> json) => BmiResponse(
-      id: json['id'] as int?,
-      wight: json['wight'] as int?,
+BmiResponse _$BmiResponseFromJson(Map<String, dynamic> json, String id) =>
+    BmiResponse(
+      id: id,
+      weight: json['weight'] as int?,
       gender: json['gender'] as String?,
       height: (json['height'] as num?)?.toDouble(),
       age: json['age'] as int?,
@@ -31,7 +32,7 @@ BmiResponse _$BmiResponseFromJson(Map<String, dynamic> json) => BmiResponse(
 Map<String, dynamic> _$BmiResponseToJson(BmiResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'wight': instance.wight,
+      'wight': instance.weight,
       'height': instance.height,
       'age': instance.age,
       'gender': instance.gender,
