@@ -1,5 +1,6 @@
 import 'package:bmi_tracker/features/bmi_calculator/presentation/controller/cubit/bmi_cubit.dart';
 import 'package:bmi_tracker/features/bmi_calculator/presentation/ui/bmi_history_screen.dart';
+import 'package:bmi_tracker/features/bmi_calculator/presentation/ui/edit_bmi_screen.dart';
 import 'package:bmi_tracker/features/bmi_calculator/presentation/ui/result_screen.dart';
 import 'package:bmi_tracker/features/login/logic/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,15 @@ class AppRoute {
             builder: (context) => BlocProvider<BmiCubit>(
                   create: (context) => getIt<BmiCubit>()..refreshData(),
                   child: const BmiHistoryScreen(),
+                ));
+
+      case Routes.updateBmi:
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider<BmiCubit>(
+                  create: (context) => getIt<BmiCubit>()
+                    ..refreshData()
+                    ..getBmiById(settings.arguments as String),
+                  child: EditBmiFrom(id: settings.arguments as String),
                 ));
 
       default:

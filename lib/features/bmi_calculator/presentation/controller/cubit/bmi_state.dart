@@ -53,4 +53,13 @@ class AddBmiError extends BmiState {
   AddBmiError({required this.error});
 }
 
+class GetBmiByIdLoading extends BmiState {}
+
+class GetBmiByIdLoaded extends BmiState {}
+
+class GetBmiByIdError extends BmiState {
+  final String error;
+  GetBmiByIdError({required this.error});
+}
+
 class BmiIncrementsNumberPage extends BmiState {}

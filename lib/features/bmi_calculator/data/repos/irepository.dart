@@ -17,31 +17,29 @@ class BmiRepo {
     this._firestore,
   );
 
-  Future<ApiResult<List<BmiResponse>>> getBmiMeasures(int page) async {
+  Future<ApiResult<List<BmiResponse>>> getBmiMeasures(
+      DocumentSnapshot? lastDocument) async {
     if (await _networkInfo.isConnected) {
       try {
         User? user = FirebaseAuth.instance.currentUser;
         String? uid = user?.uid;
-        DocumentSnapshot? documentSnapshot;
+
         QuerySnapshot querySnapshot;
-        if (page == 1) {
+        if (lastDocument == null) {
           querySnapshot = await _firestore
               .collection('users/$uid/bmiDetails')
               .orderBy('dateTime')
               .limit(10)
               .get();
-
-          documentSnapshot =
-              querySnapshot.docs.isNotEmpty ? querySnapshot.docs.last : null;
         } else {
           querySnapshot = await _firestore
               .collection('users/$uid/bmiDetails')
               .orderBy('dateTime')
-              .startAfterDocument(documentSnapshot!)
+              .startAfterDocument(lastDocument)
               .limit(10)
               .get();
         }
-        documentSnapshot =
+        lastDocument =
             querySnapshot.docs.isNotEmpty ? querySnapshot.docs.last : null;
 
         List<BmiResponse> bmiDetailsList = [];
@@ -115,6 +113,29 @@ class BmiRepo {
             .doc(id)
             .update(bmiRequestBody.toJson());
         return const ApiResult.success(null);
+      } catch (error) {
+        return ApiResult.failure(ErrorHandler.handle(error));
+      }
+    } else {
+      return ApiResult.failure(
+          ErrorHandler.handle(DataSource.INTERNAL_SERVER_ERROR.getFailure()));
+    }
+  }
+
+  Future<ApiResult<BmiResponse>> getBmiById(String id) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        User? user = FirebaseAuth.instance.currentUser;
+        String? uid = user?.uid;
+        final result = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(uid)
+            .collection('bmiDetails')
+            .doc(id)
+            .get();
+
+        return ApiResult.success(
+            BmiResponse.fromJson(result.data() as Map<String, dynamic>, id));
       } catch (error) {
         return ApiResult.failure(ErrorHandler.handle(error));
       }

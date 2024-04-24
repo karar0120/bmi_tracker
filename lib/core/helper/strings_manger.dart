@@ -34,4 +34,6 @@ class AppString {
   static const String edit = "Edit";
 
   static const String delete = "Delete";
+
+  static const String savedSuccessfully = "Saved Successfully";
 }

@@ -1,8 +1,10 @@
+import 'package:bmi_tracker/core/helper/extensions.dart';
 import 'package:bmi_tracker/core/helper/strings_manger.dart';
 import 'package:bmi_tracker/core/helper/values_manger.dart';
 import 'package:bmi_tracker/core/theming/color.dart';
 import 'package:bmi_tracker/core/theming/styles.dart';
 import 'package:bmi_tracker/features/bmi_calculator/presentation/controller/cubit/bmi_cubit.dart';
+import 'package:bmi_tracker/features/bmi_calculator/presentation/ui/edit_bmi_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,7 +45,8 @@ void showCustomBottomSheet(BuildContext context,
 
 class ButtonSheet extends StatelessWidget {
   final String id;
-  const ButtonSheet({super.key, required this.id});
+  final BuildContext blocContext;
+  const ButtonSheet({super.key, required this.id, required this.blocContext});
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +58,14 @@ class ButtonSheet extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            bmiController.updateBmi(id);
-            Navigator.pop(context);
+            context.pop();
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return BlocProvider<BmiCubit>.value(
+                value: blocContext.read<BmiCubit>(),
+                child: EditBmiFrom(id: id),
+              );
+            }));
+            //context.pushNamed(Routes.updateBmi, arguments: id);
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
@@ -69,7 +78,7 @@ class ButtonSheet extends StatelessWidget {
         InkWell(
           onTap: () {
             bmiController.deleteBmi(id);
-            Navigator.pop(context);
+            context.pop();
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),

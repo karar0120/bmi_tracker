@@ -34,6 +34,7 @@ class BmiList extends StatelessWidget {
                           bottomSheetContent: BlocProvider<BmiCubit>.value(
                             value: context.read<BmiCubit>(),
                             child: ButtonSheet(
+                                blocContext: context,
                                 id: bmiController.bmiItems[index].id!),
                           ),
                           bottomSheetHeight: 0.25);

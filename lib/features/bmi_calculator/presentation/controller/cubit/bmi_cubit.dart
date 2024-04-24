@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:bmi_tracker/core/helper/extensions.dart';
+import 'package:bmi_tracker/core/helper/strings_manger.dart';
+import 'package:bmi_tracker/core/widget/toast_message.dart';
 import 'package:bmi_tracker/features/bmi_calculator/data/models/bmi_request.dart';
 import 'package:bmi_tracker/features/bmi_calculator/data/models/bmi_response.dart';
 import 'package:bmi_tracker/features/bmi_calculator/data/repos/irepository.dart';
@@ -61,6 +63,19 @@ class BmiCubit extends Cubit<BmiState> {
     addBmi();
   }
 
+  void updateCalculatBMI(
+    id,
+    BuildContext context,
+  ) {
+    var heightMeter = height / 100;
+    tempBMI = weight / (heightMeter * heightMeter);
+    bmi = tempBMI.toStringAsFixed(1);
+    tempBMI = double.parse(bmi);
+    bmiStatus = findStatus(tempBMI);
+    colorStatus = findColor(tempBMI);
+    updateBmi(id, context);
+  }
+
   Future<void> addBmi() async {
     emit(AddBmiLoading());
     final result = await bmiRepo.addBmiMeasures(
@@ -73,8 +88,10 @@ class BmiCubit extends Cubit<BmiState> {
           dateTime: DateTime.now()),
     );
     result.when(success: (value) {
+      doneBotToast(title: AppString.savedSuccessfully);
       emit(AddBmiLoaded());
     }, failure: (error) {
+      errorBotToast(title: error.toString());
       emit(AddBmiError(error: error.toString()));
     });
   }
@@ -100,6 +117,7 @@ class BmiCubit extends Cubit<BmiState> {
     isLoaded = false;
     hasMore = true;
     pageNo = 1;
+    lastDocument = null;
     getBmi();
   }
 
@@ -108,9 +126,9 @@ class BmiCubit extends Cubit<BmiState> {
     if (isLoaded) return;
     isLoaded = true;
     isScroll = false;
-    final result = await bmiRepo.getBmiMeasures(pageNo);
+    final result = await bmiRepo.getBmiMeasures(lastDocument);
     result.when(success: (value) {
-      bmiItems = value;
+      bmiItems.addAll(value);
       isLoaded = false;
       incrementsNumberPage();
       if (bmiItems.length < limit) {
@@ -127,19 +145,21 @@ class BmiCubit extends Cubit<BmiState> {
     final result = await bmiRepo.deleteBmiMeasures(id);
     emit(DeleteBmiLoading());
     result.when(success: (value) {
+      doneBotToast(title: AppString.savedSuccessfully);
       refreshData();
       emit(DeleteBmiLoaded());
     }, failure: (error) {
+      errorBotToast(title: error.toString());
       emit(DeleteBmiError(error: error.toString()));
     });
   }
 
-  Future<void> updateBmi(String id) async {
+  Future<void> updateBmi(String id, BuildContext context) async {
     emit(UpdateBmiLoading());
     final result = await bmiRepo.updateBmiMeasures(
         id,
         BmiRequestBody(
-            age: 36,
+            age: age,
             gender: gender,
             height: height,
             weight: weight,
@@ -147,9 +167,29 @@ class BmiCubit extends Cubit<BmiState> {
             dateTime: DateTime.now()));
     result.when(success: (value) {
       refreshData();
+      context.pop();
+      doneBotToast(title: AppString.savedSuccessfully);
       emit(UpdateBmiLoaded());
     }, failure: (error) {
+      errorBotToast(title: error.toString());
       emit(UpdateBmiError(error: error.toString()));
+    });
+  }
+
+  Future<void> getBmiById(String id) async {
+    emit(GetBmiByIdLoading());
+    final result = await bmiRepo.getBmiById(
+      id,
+    );
+    result.when(success: (value) {
+      age = value.age!;
+      height = value.height!;
+      weight = value.weight!;
+      gender = value.gender!;
+      bmiStatus = value.bmiStatus!;
+      emit(GetBmiByIdLoaded());
+    }, failure: (error) {
+      emit(GetBmiByIdError(error: error.toString()));
     });
   }
 }
