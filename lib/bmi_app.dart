@@ -1,5 +1,5 @@
-import 'package:bmi_tracker/core/routing/routes.dart';
-import 'package:bmi_tracker/core/theming/color.dart';
+import 'package:bmi_tracker/core/theming/theme.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,12 +14,11 @@ class BmiApp extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       child: MaterialApp(
+        builder: BotToastInit(), //1. call BotToastInit
+        navigatorObservers: [BotToastNavigatorObserver()],
         title: "BMI App",
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            primaryColor: ColorsManager.mainBlue,
-            scaffoldBackgroundColor: Colors.white),
-        initialRoute: Routes.loginScreen,
+        darkTheme: darkTheme,
         onGenerateRoute: AppRoute.generateRoute,
       ),
     );
