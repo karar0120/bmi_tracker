@@ -117,35 +117,19 @@ Image Source : [ResoCoder](https://resocoder.com)
                 ├── docChange1       # docChange 1 created from dev
                 ├── docChange1       # docChange 2 created from dev
 
-## Pet List:
-
-- Implemented a list view displaying pet data, including the first small photo, name, gender, and type.
-- Handled cases where name, gender, or city have empty values, displaying "NA" accordingly.
-- Implemented a placeholder for cases where no photo is received.
-- Implemented pet type filtering based on available filters (All, Cat, Horse, Bird, Rabbit).
-- Ensured that the "All" tab is selected by default upon app launch.
-- Implemented horizontal scrolling for the filter tabs, ensuring visibility of all options.
-- Implemented pagination to load the next page when scrolling to the bottom of the list.
-# :iphone: Screens
-![photo_2024-02-15_18-19-24](https://github.com/karar0120/pets_finder/assets/92108624/ed75b88b-26e1-4d56-a682-88e969086733)
-![photo_2024-02-15_18-20-39](https://github.com/karar0120/pets_finder/assets/92108624/08032491-c781-4d4a-8635-ad675f9a19ff)
-![photo_2024-02-15_18-20-26](https://github.com/karar0120/pets_finder/assets/92108624/1e9c7d6c-6445-4fdb-a465-c952ee3872a3)
-![photo_2024-02-15_18-20-44](https://github.com/karar0120/pets_finder/assets/92108624/741b1449-38e8-47ff-8a2c-098eef6d58d5)
-![photo_2024-02-15_18-20-31](https://github.com/karar0120/pets_finder/assets/92108624/7d52b8b3-717e-4a76-9747-c198da673c2b)
-![photo_2024-02-15_18-20-42](https://github.com/karar0120/pets_finder/assets/92108624/a004c829-79b5-4f1a-85f5-3bb38806fadb)
-![photo_2024-02-15_18-19-21](https://github.com/karar0120/pets_finder/assets/92108624/8a903232-33c5-40b1-845b-577cff3ae0a7)
-
-
-## Pet Details:
-
-- Implemented the display of pet details upon selection, including the first medium photo, name, size, primary color, and address.
-- Handled cases where name, size, primary color, or address have empty values, displaying "NA" accordingly.
-- Implemented a placeholder for cases where no photo is received.
-- Implemented functionality to open the publisher's website when the button is clicked.
-- Implemented navigation back to the main screen from the pet details screen.
 
 # :iphone: Screens
-![photo_2024-02-15_18-19-56](https://github.com/karar0120/pets_finder/assets/92108624/6b778b5c-8ad2-4c0a-8d4b-9c5c4667a71d)
-![photo_2024-02-15_18-19-51](https://github.com/karar0120/pets_finder/assets/92108624/c15a166f-e55c-47b9-a083-e3acaac1621e)
-![photo_2024-02-15_18-20-24](https://github.com/karar0120/pets_finder/assets/92108624/1bbefcdb-0735-4db6-9551-3e1831ac3431)
+![Screenshot_1713933873](https://github.com/karar0120/bmi_tracker/assets/92108624/dca638c7-9073-47ff-b5d9-c6767497ed08)
+![Screenshot_1713933881](https://github.com/karar0120/bmi_tracker/assets/92108624/dd830406-8f1c-4fe7-9860-9190862140d1)
+![Screenshot_1713933889](https://github.com/karar0120/bmi_tracker/assets/92108624/cb8f370e-abde-4307-8088-647cc5a33750)
+![Scree![Screenshot_1713933895](https://github.com/karar0120/bmi_tracker/assets/92108624/05847af5-757e-4b9b-98e4-eecabc668270)
+![Screenshot_1713933907](https://github.com/karar0120/bmi_tracker/assets/92108624/13d92c7e-29a6-4704-b478-b1f0b0bea57f)
+![Screenshot_1713933927](https://github.com/karar0120/bmi_tracker/assets/92108624/ecbda7cb-6c6d-476e-8406-4c0330e6ff69)
+
+
+# Time Spent
+Approximately 6 hours were spent on implementing the features, setting up Firebase integration, testing, and writing documentation.
+
+# APK
+Attached is the APK file for the project.
 
